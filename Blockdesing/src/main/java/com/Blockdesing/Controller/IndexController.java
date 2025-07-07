@@ -23,8 +23,18 @@ public class IndexController {
         //model.addAttribute("attribute", "value");
         return "info";
     }
+    
+    @RequestMapping("/login")
+    public String login() {
+        //model.addAttribute("attribute", "value");
+        return "login";
+    }
+    
+    @RequestMapping("/registro")
+    public String registro() {
+        //model.addAttribute("attribute", "value");
+        return "registro";
+    }
 
 }
-
-    
 
