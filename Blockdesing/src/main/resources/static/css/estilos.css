@@ -1,0 +1,81 @@
+
+/* 
+   Selector de IDs
+*/
+
+#encabezado {
+    top: 0;
+    left: 0;
+    height: 10%;
+    width: 100%;
+    text-align: center;
+    background-color: graytext;
+    position: fixed;
+    
+}
+
+#menu {
+    top: 10%;
+    left: 0;
+    height: 5%;
+    width: 100%;
+    text-align: right;
+    background-color: whitesmoke;
+    position: fixed;
+}
+
+#barraLateral {
+    top: 15%;
+    left: 0;
+    height: 75%;
+    width: 20%;
+    background-color: greenyellow;
+    position: fixed;
+}
+
+#contenido {
+    top: 15%;
+    left: 20%;
+    height: 75%;
+    width: 100%;
+    background-color: cyan;
+    position: fixed;
+}
+
+#piePagina {
+    bottom: 0%;
+    left: 0%;
+    height: 10%;
+    width: 100%;
+    text-align: center;
+    background-color: yellow;
+    position: fixed;
+}
+
+.parrafoRojo {
+    color: red;
+}
+
+/*p{
+    font-size: 20px;
+}*/
+
+div p {
+    font-size: 25px;
+}
+
+:visited {
+    
+}
+
+:hover {
+    background-color: gray;
+    color: white;
+    transition: 1s;
+    
+}
+
+:active {
+    background-color: gray;
+    
+}
