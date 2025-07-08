@@ -11,8 +11,9 @@
     text-align: center;
     background-color: graytext;
     position: fixed;
-    
+
 }
+
 
 #menu {
     top: 10%;
@@ -65,17 +66,17 @@ div p {
 }
 
 :visited {
-    
+
 }
 
 :hover {
     background-color: gray;
     color: white;
     transition: 1s;
-    
+
 }
 
 :active {
     background-color: gray;
-    
+
 }

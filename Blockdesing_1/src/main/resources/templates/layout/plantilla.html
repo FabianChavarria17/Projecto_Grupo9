@@ -1,101 +1,116 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="head">
-    <title>BlockDesign</title>
-    <meta charset="UTF-8"/>
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-    <script th:src="@{/js/rutinas.js}"></script>
+    <head th:fragment="head">
+        <title>BlockDesign</title>
+        <meta charset="UTF-8"/>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        
 
-    <style>
-        body {
-            background-color: #f0f0f0; /* fondo gris claro */
-        }
 
-        /* Navbar con azul #3c99cf */
-        .navbar-custom {
-            background-color: #3c99cf !important;
-        }
+        <style>
+            body {
+                background-color: #f0f0f0; /* fondo gris claro */
+            }
 
-        /* Hover efecto en los links */
-        .navbar-custom .nav-link:hover {
-            background-color: #358ab8;
-            border-radius: 4px;
-        }
+            /* Navbar con azul #3c99cf */
+            .navbar-custom {
+                background-color: #3c99cf !important;
+            }
 
-        /* Banner azul oscuro */
-        .custom-banner {
-            background-color: #0d47a1 !important;
-        }
+            /* Hover efecto en los links */
+            .navbar-custom .nav-link:hover {
+                background-color: #358ab8;
+                border-radius: 4px;
+            }
 
-        /* Footer con mismo color que navbar */
-        .custom-footer {
-            background-color: #3c99cf;
-        }
-    </style>
-</head>
-<body>
-<header th:fragment="header" class="header">
-    <nav class="navbar navbar-expand-sm navbar-dark navbar-custom p-0">
-        <div class="container">
-            <a th:href="@{/}" class="navbar-brand">BlockDesign</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item px-2">
-                        <a class="nav-link" th:href="@{/info}">Sobre Nosotros</a>
-                    </li>
-                    <li class="nav-item px-2">
-                        <a class="nav-link" th:href="@{/login}">Iniciar Sesión</a>
-                    </li>
-                    <li class="nav-item px-2">
-                        <a class="nav-link" th:href="@{/registro}">Registrarse</a>
-                    </li>
-                    <li class="nav-item px-2">
-                        <a class="btn btn-outline-light btn-sm" th:href="@{/perfil}">
-                            <i class="fas fa-user-circle"></i> Perfil
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Lang
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="langDropdown">
-                            <li><a class="dropdown-item" th:href="@{/(lang=es)}">ES</a></li>
-                            <li><a class="dropdown-item" th:href="@{/(lang=en)}">EN</a></li>
+            /* Banner azul oscuro */
+            .custom-banner {
+                background-color: #0d47a1 !important;
+
+            }
+
+            /* Footer con mismo color que navbar */
+            .custom-footer {
+                background-color: #3c99cf;
+            }
+            /*#particles-js {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;  detrás del contenido 
+                background-color: #0d1117;  o el color que desees 
+            }
+            */
+        </style>
+    </head>
+    <body>
+        <header th:fragment="header" class="header">
+            <nav class="navbar navbar-expand-sm navbar-dark navbar-custom p-0">
+                <div class="container">
+                    <a th:href="@{/}" class="navbar-brand">
+                        <img th:src="@{/img/logoLanscape2.png}" alt="logo" width="180" class="d-inline-block align-text-top"/>
+
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item px-2">
+                                <a class="nav-link" th:href="@{/info}">Sobre Nosotros</a>
+                            </li>
+                            <li class="nav-item px-2">
+                                <a class="nav-link" th:href="@{/login}">Iniciar Sesión</a>
+                            </li>
+                            <li class="nav-item px-2">
+                                <a class="nav-link" th:href="@{/registro}">Registrarse</a>
+                            </li>
+                            <li class="nav-item px-2">
+                                <a class="btn btn-outline-light btn-sm" th:href="@{/perfil}">
+                                    <i class="fas fa-user-circle"></i> Perfil
+                                </a>
+                            </li>
                         </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Lang
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="langDropdown">
+                                    <li><a class="dropdown-item" th:href="@{/(lang=es)}">ES</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/(lang=en)}">EN</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
 
-    <section id="main-header" class="py-2 text-white custom-banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-6">
-                    <h1><i class="fas fa-cog"></i> BlockDesign</h1>
+            <section id="main-header" class="py-2 text-white custom-banner">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <h1><img th:src="@{/img/logo2.png}" alt="logo" width="100"/> BlockDesign</h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </header>
+
+        <footer th:fragment="footer" class="custom-footer text-white mt-5 p-2">
+            <div class="container">
+                <div class="col">
+                    <p class="lead text-center">&copy; 2025 BlockDesign. Todos los derechos reservados.</p>
                 </div>
             </div>
-        </div>
-    </section>
-</header>
-
-<footer th:fragment="footer" class="custom-footer text-white mt-5 p-2">
-    <div class="container">
-        <div class="col">
-            <p class="lead text-center">&copy; 2025 BlockDesign. Todos los derechos reservados.</p>
-        </div>
-    </div>
-</footer>
-</body>
+        </footer>
+    </body>
 </html>
