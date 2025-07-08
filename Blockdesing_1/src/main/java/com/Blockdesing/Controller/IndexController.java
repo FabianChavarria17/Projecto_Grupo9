@@ -30,7 +30,7 @@ public class IndexController {
     @RequestMapping("/registro")
     public String registro() {
         //model.addAttribute("attribute", "value");
-        return "hola";
+        return "registro";
     }
 
 }
