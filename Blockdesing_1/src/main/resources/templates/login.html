@@ -9,7 +9,7 @@
         <main class="container mt-5">
             <h2>Inicio de Sesión</h2>
 
-            <form th:action="@{/api/login}" method="post">
+            <form th:action="@{/login}" method="post">
                 <div class="mb-3">
                     <label for="correo">Correo:</label>
                     <input type="email" class="form-control" id="correo" name="correo" required>
@@ -22,10 +22,24 @@
 
                 <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
             </form>
-
+            <div class="container mt-4">
+                <div id="mensajeLogin" th:if="${mensaje}" class="alert alert-success" role="alert" th:text="${mensaje}">
+                    ¡Bienvenido!
+                </div>
+            </div>
             <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
         </main>
-
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                const mensaje = document.getElementById('mensajeLogin');
+                if (mensaje) {
+                    // Ocultar después de 5 segundos
+                    setTimeout(() => {
+                        mensaje.style.display = 'none';
+                    }, 5000);
+                }
+            });
+        </script>
 
         <footer th:replace="~{layout/plantilla :: footer}"></footer>
     </body>

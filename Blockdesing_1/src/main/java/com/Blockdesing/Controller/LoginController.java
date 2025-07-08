@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/login")
 public class LoginController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class LoginController {
             session.setAttribute("usuarioLogueado", usuario);
             // Redireccionar al inicio con mensaje
             redirectAttributes.addFlashAttribute("mensaje", "Login exitoso. ¡Bienvenido " + usuario.getNombre() + "!");
-            return "redirect:/index";
+            return "redirect:/";
             /*return "Login exitoso. Bienvenido, " + usuario.getNombre();*/
         } else {
             // Redireccionar a login con error
