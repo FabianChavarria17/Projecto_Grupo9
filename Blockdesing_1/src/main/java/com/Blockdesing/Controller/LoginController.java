@@ -4,13 +4,16 @@ package com.Blockdesing.Controller;
 
 import com.Blockdesing.Dao.UsuarioDao;
 import com.Blockdesing.Domain.Usuario;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestController
+@Controller
 @RequestMapping("/api")
 public class LoginController {
 
@@ -18,12 +21,21 @@ public class LoginController {
     private UsuarioDao usuarioDao;
 
     @PostMapping("/login")
-    public String login(@RequestParam String correo, @RequestParam String password) {
+    public String login(@RequestParam String correo, @RequestParam String password,RedirectAttributes redirectAttributes,
+            HttpSession session) {
         Usuario usuario = usuarioDao.findByCorreoAndPassword(correo, password);
         if (usuario != null && usuario.isActivo()) {
-            return "Login exitoso. Bienvenido, " + usuario.getNombre();
+            // Guardar usuario en sesión (opcional)
+            session.setAttribute("usuarioLogueado", usuario);
+            // Redireccionar al inicio con mensaje
+            redirectAttributes.addFlashAttribute("mensaje", "Login exitoso. ¡Bienvenido " + usuario.getNombre() + "!");
+            return "redirect:/index";
+            /*return "Login exitoso. Bienvenido, " + usuario.getNombre();*/
         } else {
-            return "Credenciales inválidas o cuenta inactiva";
+            // Redireccionar a login con error
+            redirectAttributes.addFlashAttribute("error", "Correo o contraseña incorrectos.");
+            return "redirect:/login";
+            /*return "Credenciales inválidas o cuenta inactiva";*/
         }
     }
 }
