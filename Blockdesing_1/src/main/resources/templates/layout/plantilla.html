@@ -9,7 +9,9 @@
         <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
         <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
         <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-        
+        <script th:src="@{/js/particles.min.js}"></script>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+
 
 
         <style>
@@ -38,19 +40,20 @@
             .custom-footer {
                 background-color: #3c99cf;
             }
-            /*#particles-js {
+            #particles-js {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                z-index: -1;  detrás del contenido 
-                background-color: #0d1117;  o el color que desees 
+                z-index: -1;
+                background-color: #0d1117;
             }
-            */
+
         </style>
     </head>
     <body>
+        <div id="particles-js"></div>
         <header th:fragment="header" class="header">
             <nav class="navbar navbar-expand-sm navbar-dark navbar-custom p-0">
                 <div class="container">
@@ -112,5 +115,60 @@
                 </div>
             </div>
         </footer>
+        
+        <script>
+            particlesJS('particles-js',
+                    {
+                        "particles": {
+                            "number": {
+                                "value": 80,
+                                "density": {"enable": true, "value_area": 800}
+                            },
+                            "color": {"value": "#ffffff"},
+                            "shape": {
+                                "type": "circle",
+                                "stroke": {"width": 0, "color": "#000000"},
+                                "polygon": {"nb_sides": 5}
+                            },
+                            "opacity": {
+                                "value": 0.5,
+                                "random": false,
+                                "anim": {"enable": false}
+                            },
+                            "size": {
+                                "value": 3,
+                                "random": true,
+                                "anim": {"enable": false}
+                            },
+                            "line_linked": {
+                                "enable": true,
+                                "distance": 150,
+                                "color": "#ffffff",
+                                "opacity": 0.4,
+                                "width": 1
+                            },
+                            "move": {
+                                "enable": true,
+                                "speed": 2,
+                                "direction": "none",
+                                "random": false,
+                                "straight": false,
+                                "out_mode": "bounce"
+                            }
+                        },
+                        "interactivity": {
+                            "detect_on": "canvas",
+                            "events": {
+                                "onhover": {"enable": true, "mode": "grab"},
+                                "onclick": {"enable": true, "mode": "push"}
+                            },
+                            "modes": {
+                                "grab": {"distance": 140, "line_linked": {"opacity": 1}},
+                                "push": {"particles_nb": 4}
+                            }
+                        },
+                        "retina_detect": true
+                    });
+        </script>
     </body>
 </html>

@@ -7,7 +7,100 @@
     <body>
         <header th:replace="~{layout/plantilla :: header}"></header>
 
+        <main class="container my-5">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary">¡Bienvenido!</h1>
+                <p class="lead">Conecta talento con oportunidad en el mundo del diseño técnico.</p>
+            </div>
 
-        <footer th:replace="~{layout/plantilla :: footer}"></footer>
-    </body>
-</html>
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <h2 class="text-success">Talentos: Dibujantes / Diseñadores</h2>
+                    <p id="texto-talentos">
+                        Pon en practica tu conocimiento y experiencia al desarrollar proyectos especiales a clientes de todo Costa Rica, en BlockDesign podras poner a prueba tus habilidades y
+                        crecer en experiencia y generar remuneraciones en este ambiente seguro, controlado y moderno. Selecciona dentro de las diferentes ofertas el proyecto que mejor se acomoda
+                        a tus gustos y habilidades, permitiendote trabajar desde cualquier parte, formentando lazos con profesionales de todas las areas.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-info">Ofertantes: Consultores / Constructoras</h2>
+                    <p id="texto-ofertantes">
+                        No busques mas, aqui podras publicar tu oferta de trabajo y recibiras multiples solicitudes de trabajo. En BlockDesign podras inscibirte, administrar tu perfil, publicar el o los
+                        proyectos que desees asistencia en dibujo y dise;o, coloca las caracteristicas respectivas (area de desempe;o, tiempo, presupuesto y especificaciones), publica tu oferta en
+                        un portal donde todos los talentos podran participar por desarrollar tu proyecto. Selecciona el candidato que mas se identifique con el perfil experimental que estas buscando y listo!.
+                        Disfuta de una conexion profesional y comprometida durante el desarrollo de tu proyecto.
+
+                    </p>
+                </div>
+            </div>
+            <div class="container mb-5">
+                <h2 class="text-center text-primary mb-4">Ofertas Disponibles</h2>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <!-- Oferta 1-1 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Especificaciones</h5>
+                                    <p class="card-text">Buscamos diseñador técnico para elaborar planos eléctricos para proyecto residencial.</p>
+                                </div>
+                        </div>
+                    </div>
+
+                    <!-- Oferta 1-2 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Especificaciones</h5>
+                                    <p class="card-text">Se requiere apoyo para modelado de elementos estructurales en Revit.</p>
+                                </div>
+                        </div>
+                    </div>
+
+                    <!-- Oferta 1-3 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Especificaciones</h5>
+                                    <p class="card-text">Proyecto de renovación de interiores necesita visualizaciones 3D y renders.</p>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- Oferta 2-1 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Especificaciones</h5>
+                                    <p class="card-text">Buscamos dibujante técnico para desarrollar planos mecanicos de sistema de aire acondicionado para proyecto iondustrial.</p>
+                                </div>
+                        </div>
+                    </div>
+
+                    <!-- Oferta 2-2 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Especificaciones</h5>
+                                    <p class="card-text">Se necesita modelado muebles y sillas en 3D utilzando Render.</p>
+                                </div>
+                        </div>
+                    </div>
+
+                    <!-- Oferta 3-3 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Especificaciones</h5>
+                                    <p class="card-text">Levantamiento arquitectonico de hogar a remodelar</p>
+                                </div>
+                        </div>
+                    </div>
+                    </main>
+                    <footer th:replace="~{layout/plantilla :: footer}"></footer>
+                    </body>
+                    </html>
