@@ -32,6 +32,12 @@ public class IndexController {
         //model.addAttribute("attribute", "value");
         return "registro";
     }
+    
+    @RequestMapping("/perfil")
+    public String perfil() {
+        //model.addAttribute("attribute", "value");
+        return "perfil";
+    }
 
 }
 
