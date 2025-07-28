@@ -70,16 +70,22 @@
                             <li class="nav-item px-2">
                                 <a class="nav-link" th:href="@{/info}">Sobre Nosotros</a>
                             </li>
-                            <li class="nav-item px-2">
+                            <li class="nav-item px-2" th:if="${session.usuarioLogueado == null}">
                                 <a class="nav-link" th:href="@{/login}">Iniciar Sesión</a>
                             </li>
-                            <li class="nav-item px-2">
+                            <li class="nav-item px-2" th:if="${session.usuarioLogueado == null}">
                                 <a class="nav-link" th:href="@{/registro}">Registrarse</a>
                             </li>
-                            <li class="nav-item px-2">
-                                <a class="btn btn-outline-light btn-sm" th:href="@{/perfil}">
-                                    <i class="fas fa-user-circle"></i> Perfil
+                            <li class="nav-item dropdown" th:if="${session.usuarioLogueado != null}">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span th:text="${session.usuarioLogueado.nombre}">Usuario</span>
                                 </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" th:href="@{/perfil}">Mi Perfil</a></li>
+                                    <li><hr class="dropdown-divider"/></li>
+                                    <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
+                                </ul>
                             </li>
                         </ul>
                         <ul class="navbar-nav">
@@ -115,7 +121,7 @@
                 </div>
             </div>
         </footer>
-        
+
         <script>
             particlesJS('particles-js',
                     {
