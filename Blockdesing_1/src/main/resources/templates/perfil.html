@@ -1,63 +1,34 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/plantilla :: head"></head>
+    <body>
+        <div th:replace="layout/plantilla :: header"></div>
 
-<head th:replace="~{layout/plantilla :: head}">
-    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
-</head>
+        <div class="container mt-5">
+            <h2>Mi Perfil</h2>
+            <p><strong>Nombre:</strong> <span th:text="${usuario.nombre}">Nombre</span></p>
+            <p><strong>Correo:</strong> <span th:text="${usuario.correo}">correo@ejemplo.com</span></p>
 
-<body>
-    <header th:replace="~{layout/plantilla :: header}"></header>
-
-    <main style="margin-left: 220px; padding: 20px;">
-        <!-- Título y botón -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="fw-bold">My profile</h3>
-            <button class="btn btn-edit"><i class="fas fa-pen"></i> Edit profile</button>
-        </div>
-
-        <!-- Tarjeta de perfil -->
-        <div class="card profile-card mb-4">
-            <div class="row g-3">
-                <div class="col-md-2 text-center">
-                    <img src="/img/user1.jpg" alt="Foto de perfil" class="img-fluid rounded-circle" style="max-width: 100px;">
-                </div>
-                <div class="col-md-10">
-                    <h5><strong th:text="${usuario.nombre}">User donUser</strong></h5>
-                    <p><i class="fas fa-envelope"></i> <span th:text="${usuario.correo}">donUser@email.com</span></p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit lacus...</p>
-                    <div class="row text-center mt-3">
-                        <div class="col-md-4">
-                            <i class="fas fa-shield-alt"></i> Blocker level : <strong>1</strong>
-                        </div>
-                        <div class="col-md-4">
-                            <i class="fas fa-briefcase"></i> Jobs completed : <strong>5</strong>
-                        </div>
-                        <div class="col-md-4">
-                            <i class="fas fa-star"></i> <strong>4.7</strong>
-                        </div>
+            <h3 class="mt-4">Proyectos Realizados</h3>
+            <div th:if="${#lists.isEmpty(proyectos)}">
+                <p>No has agregado aún ningún proyecto.</p>
+            </div>
+            <div th:if="${!#lists.isEmpty(proyectos)}">
+                <div class="list-group">
+                    <div class="list-group-item" th:each="proyecto : ${proyectos}">
+                        <h5 th:text="${proyecto.titulo}">Título Proyecto</h5>
+                        <p th:text="${proyecto.descripcion}">Descripción...</p>
+                        <p>
+                            <strong>Finalizado:</strong>
+                            <span th:text="${proyecto.fechaFin}">2025-07-28</span>
+                        </p>
+                        <a th:if="${proyecto.enlace}" th:href="${proyecto.enlace}" target="_blank">Ver más</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Portfolio -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4>Portfolio</h4>
-            <button class="btn btn-primary"><i class="fas fa-plus"></i> Add project +</button>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4 mb-3" th:each="proyecto : ${proyectos}">
-                <div class="card text-center p-3">
-                    <img th:src="@{/img/orquidea.jpg}" class="img-fluid rounded mb-2" alt="Proyecto" />
-                    <p class="fw-bold" th:text="${proyecto.nombre}">Lorem Ipsum dolor</p>
-                    <button class="btn btn-dark btn-sm"><i class="fas fa-plus"></i></button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer th:replace="~{layout/plantilla :: footer}"></footer>
-</body>
+        <div th:replace="layout/plantilla :: footer"></div>
+    </body>
 </html>
