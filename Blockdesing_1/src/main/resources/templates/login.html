@@ -21,13 +21,14 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-            </form>
+            
             <div class="container mt-4">
                 <div id="mensajeLogin" th:if="${mensaje}" class="alert alert-success" role="alert" th:text="${mensaje}">
                     ¡Bienvenido!
                 </div>
             </div>
             <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+            </form>
         </main>
         <script>
             window.addEventListener('DOMContentLoaded', () => {
