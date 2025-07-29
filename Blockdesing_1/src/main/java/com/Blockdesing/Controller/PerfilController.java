@@ -28,12 +28,12 @@ public class PerfilController {
 
     @Value("${app.upload.dir:${user.home}/uploads}")
     private String uploadDir;
-    
+
     @Autowired
     private UsuarioService usuarioService;
-    
+
     @Autowired
-    private ProyectoService  proyectoService ;
+    private ProyectoService proyectoService;
 
     @GetMapping("/perfil")
     public String perfil(HttpSession session, Model model) {
@@ -50,9 +50,9 @@ public class PerfilController {
 
     @PostMapping("/perfil/upload")
     public String subirCv(@RequestParam("file") MultipartFile file,
-                          @RequestParam(value = "descripcion", required = false) String descripcion,
-                          HttpSession session,
-                          RedirectAttributes ra) throws IOException {
+            @RequestParam(value = "descripcion", required = false) String descripcion,
+            HttpSession session,
+            RedirectAttributes ra) throws IOException {
         Usuario usr = (Usuario) session.getAttribute("usuarioLogueado");
         if (usr == null) {
             return "redirect:/login";
@@ -71,12 +71,14 @@ public class PerfilController {
         ra.addFlashAttribute("mensaje", "CV subido correctamente.");
         return "redirect:/perfil";
     }
-    
+
     // Formulario para agregar un proyecto
     @GetMapping("/perfil/proyecto/nuevo")
     public String nuevoProyectoForm(HttpSession session, Model model) {
         Usuario usr = (Usuario) session.getAttribute("usuarioLogueado");
-        if (usr == null) return "redirect:/login";
+        if (usr == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("proyecto", new Proyecto());
         return "proyecto";
     }
@@ -84,10 +86,12 @@ public class PerfilController {
     // Procesar creación de proyecto
     @PostMapping("/perfil/proyecto/nuevo")
     public String guardarProyecto(@ModelAttribute Proyecto proyecto,
-                                  HttpSession session,
-                                  RedirectAttributes ra) {
+            HttpSession session,
+            RedirectAttributes ra) {
         Usuario usr = (Usuario) session.getAttribute("usuarioLogueado");
-        if (usr == null) return "redirect:/login";
+        if (usr == null) {
+            return "redirect:/login";
+        }
 
         proyecto.setUsuario(usr);
         proyectoService.guardar(proyecto);
@@ -99,7 +103,9 @@ public class PerfilController {
     @GetMapping("/perfil/editar")
     public String editarUsuarioForm(HttpSession session, Model model) {
         Usuario usr = (Usuario) session.getAttribute("usuarioLogueado");
-        if (usr == null) return "redirect:/login";
+        if (usr == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("usuario", usr);
         return "usuario";
     }
@@ -107,19 +113,31 @@ public class PerfilController {
     // Procesar edición de Usuario
     @PostMapping("/perfil/editar")
     public String actualizarUsuario(@ModelAttribute Usuario usuario,
-                                    HttpSession session,
-                                    RedirectAttributes ra) {
-        Usuario usr = (Usuario) session.getAttribute("usuarioLogueado");
-        if (usr == null) return "redirect:/login";
+            HttpSession session,
+            RedirectAttributes ra) {
+        Usuario usrSession = (Usuario) session.getAttribute("usuarioLogueado");
+        if (usrSession == null) {
+            return "redirect:/login";
+        }
 
-        usuario.setIdUsuario(usr.getIdUsuario());
+        // 1) Mantener ID y username originales
+        usuario.setIdUsuario(usrSession.getIdUsuario());
+        usuario.setUserName(usrSession.getUserName());
+
+        // 2) Mantener password si viene vacío (como antes)
+        if (usuario.getPassword() == null || usuario.getPassword().isEmpty()) {
+            usuario.setPassword(usrSession.getPassword());
+        }
+
+        // 3) Persistir
         usuarioService.save(usuario);
-        session.setAttribute("usuarioLogueado", usuario);
 
+        // 4) Actualizar sesión y feedback
+        session.setAttribute("usuarioLogueado", usuario);
         ra.addFlashAttribute("mensaje", "Perfil actualizado correctamente.");
         return "redirect:/perfil";
+
     }
-    
 }
 
 //import com.Blockdesing.Domain.Proyecto;
