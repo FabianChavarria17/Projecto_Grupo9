@@ -5,12 +5,19 @@
     <body>
         <div th:replace="layout/plantilla :: header"></div>
 
-        <div class="container mt-5">
+        <div class="container mt-3">
+            <div class="d-flex justify-content-end mb-3">
+                <a class="btn btn-sm btn-outline-primary me-3" th:href="@{/perfil/proyecto/nuevo}">
+                    <i class="fas fa-plus"></i> Agregar Proyecto
+                </a>
+                <a class="btn btn-sm btn-outline-secondary" th:href="@{/perfil/editar}">
+                    <i class="fas fa-edit"></i> Editar Perfil
+                </a>
+            </div>
             <h2>Mi Perfil</h2>
             <p><strong>Nombre:</strong> <span th:text="${usuario.nombre}">Nombre</span></p>
             <p><strong>Correo:</strong> <span th:text="${usuario.correo}">correo@ejemplo.com</span></p>
             <p><strong>Rol:</strong> <span th:text="${usuario.rol}">Rol</span></p>
-
             <h3 class="mt-4">Proyectos Realizados</h3>
             <div th:if="${#lists.isEmpty(proyectos)}">
                 <p>No has agregado aún ningún proyecto.</p>

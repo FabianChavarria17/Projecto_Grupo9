@@ -3,6 +3,7 @@ package com.Blockdesing.Controller;
 import com.Blockdesing.Dao.UsuarioDao;
 import com.Blockdesing.Domain.Usuario;
 import com.Blockdesing.Service.UsuarioService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,19 +24,10 @@ public class RegistroController {
      
     @GetMapping("/registro")
     public String mostrarFormularioRegistro(Model model) {
-        model.addAttribute("usuario", new Usuario());  
+        model.addAttribute("usuario", new Usuario()); 
+        model.addAttribute("roles", List.of("dibujante", "constructor", "ADMIN"));
         return "registro";
     }
-    
-    /*
-    @PostMapping("/registro")
-    public String procesarFormularioRegistro(@ModelAttribute Usuario usuario, Model model) {
-        usuario.setActivo(true);
-        usuarioService.save(usuario);
-        model.addAttribute("mensaje", "¡Usuario registrado con éxito!");
-        model.addAttribute("usuario", new Usuario()); 
-        return "registro";
-    }*/
 
     @PostMapping("/registro")
     public String registrarUsuario(
@@ -43,7 +35,7 @@ public class RegistroController {
             @RequestParam String password,
             @RequestParam String nombre,
             @RequestParam(required = false) String correo,
-            @RequestParam(defaultValue = "USER") String rol,
+            @RequestParam String rol,
             Model model
     ) {
         // Verificar si ya existe un usuario con ese username
@@ -51,14 +43,16 @@ public class RegistroController {
         if (existente != null) {
             model.addAttribute("mensaje", "El nombre de usuario ya esta en uso");
             model.addAttribute("mensaje", new Usuario());
+            model.addAttribute("roles", List.of("dibujante", "constructor", "ADMIN"));
             return "registro";
         }
 
         // Crear y guardar nuevo usuario
         Usuario nuevoUsuario = new Usuario(userName, password, nombre, correo, rol, true);
-        usuarioDao.save(nuevoUsuario);
+        usuarioService.save(nuevoUsuario);
         model.addAttribute("mensaje", "Registro Exitoso");
         model.addAttribute("usuario", new Usuario());
+        model.addAttribute("roles", List.of("dibujante", "constructor", "ADMIN"));
         return "registro";
     }
 

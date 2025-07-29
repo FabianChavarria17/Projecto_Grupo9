@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <body>
+        <div th:replace="~{layout/plantilla :: header}"></div>
+        <div class="container mt-4">
+            <h2>Editar Perfil</h2>
+            <form th:action="@{/perfil/editar}" th:object="${usuario}" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input class="form-control" th:field="*{nombre}" required/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Correo</label>
+                    <input class="form-control" th:field="*{correo}" type="email" required/>
+                </div>
+                <div class="col-md-6">
+                    <label for="rol" class="form-label">Rol</label>
+                    <select th:field="*{rol}" class="form-select" id="rol" required>
+                        <option value="USER">Ofertante</option>
+                        <option value="USER">Dibujante</option>
+                        <option value="ADMIN">Administrador</option>
+                    </select>
+                </div>
+                <!-- Agrega más campos según tu entidad Usuario -->
+                <button class="btn btn-primary" type="submit">Actualizar</button>
+                <a class="btn btn-secondary ms-2" th:href="@{/perfil}">Cancelar</a>
+            </form>
+        </div>
+        <div th:replace="~{layout/plantilla :: footer}"></div>
+    </body>
+</html>
