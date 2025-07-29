@@ -24,7 +24,14 @@ public class Usuario implements Serializable {
     private String rol;
     private boolean activo;
     private String cvPath;    // para almacenar ruta o nombre
-
+    
+    //Examen
+    @Column(name = "examen1_aprobado")
+    private boolean examen1Aprobado;
+    
+    @Column(name = "examen2_aprobado")
+    private boolean examen2Aprobado;
+    
     public Usuario() {
     }
 
@@ -61,5 +68,23 @@ public class Usuario implements Serializable {
 
     public String getCvPath() { return cvPath; }
     public void setCvPath(String cvPath) { this.cvPath = cvPath; }
+    
+     public boolean isExamen1Aprobado() {
+        return examen1Aprobado;
+    }
+
+        //Examen
+
+    public void setExamen1Aprobado(boolean examen1Aprobado) {
+        this.examen1Aprobado = examen1Aprobado;
+    }
+
+    public boolean isExamen2Aprobado() {
+        return examen2Aprobado;
+    }
+
+    public void setExamen2Aprobado(boolean examen2Aprobado) {
+        this.examen2Aprobado = examen2Aprobado;
+    }
 }
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/plantilla :: head"></head>
+<body>
+<div th:replace="layout/plantilla :: header"></div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Evaluación de Habilidades</h2>
+
+    <div class="row">
+        <!-- Examen 1 -->
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Examen 1</h5>
+                    <p class="card-text">Evaluación básica</p>
+                    <a th:href="@{/evaluaciones/examen1}" class="btn btn-success">Comenzar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Examen 2 -->
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Examen 2</h5>
+                    <p class="card-text">Nivel intermedio</p>
+                    <a th:if="${usuario.examen1Aprobado}" th:href="@{/evaluaciones/examen2}" class="btn btn-success">Comenzar</a>
+                    <button th:if="${!usuario.examen1Aprobado}" class="btn btn-secondary" disabled>Bloqueado</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Examen 3 -->
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Examen 3</h5>
+                    <p class="card-text">Nivel avanzado</p>
+                    <a th:if="${usuario.examen2Aprobado}" th:href="@{/evaluaciones/examen3}" class="btn btn-success">Comenzar</a>
+                    <button th:if="${!usuario.examen2Aprobado}" class="btn btn-secondary" disabled>Bloqueado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout/plantilla :: footer"></div>
+</body>
+</html>

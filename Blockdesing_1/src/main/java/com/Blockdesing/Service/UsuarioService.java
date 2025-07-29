@@ -12,5 +12,8 @@ public interface UsuarioService {
     public void save(Usuario usuario);          
 
     public void delete(Usuario usuario);
+    
+    //Examen
+    Usuario findByUsername(String username);
 
 }
