@@ -9,6 +9,7 @@
             <h2>Mi Perfil</h2>
             <p><strong>Nombre:</strong> <span th:text="${usuario.nombre}">Nombre</span></p>
             <p><strong>Correo:</strong> <span th:text="${usuario.correo}">correo@ejemplo.com</span></p>
+            <p><strong>Rol:</strong> <span th:text="${usuario.rol}">Rol</span></p>
 
             <h3 class="mt-4">Proyectos Realizados</h3>
             <div th:if="${#lists.isEmpty(proyectos)}">
@@ -27,6 +28,34 @@
                     </div>
                 </div>
             </div>
+            <!-- Para cargar archivos tipo CV -->
+            <div class="container mt-4">
+                <h3>Subir CV / Portafolio</h3>
+
+                <!-- Mensaje de éxito / error -->
+                <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
+
+                <form th:action="@{/perfil/upload}" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Selecciona tu CV (PDF o Word)</label>
+                        <input class="form-control" type="file" id="file" name="file" accept=".pdf,.doc,.docx" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción (opcional)</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion"
+                               placeholder="Breve descripción de tu documento">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Subir</button>
+                </form>
+
+                <!-- Si ya existe un CV, ofrecemos descarga -->
+                <div th:if="${usuario.cvPath}" class="mt-3">
+                    <p>CV actual: <a th:href="@{/uploads/{file}(file=${usuario.cvPath})}"
+                                     target="_blank" th:text="${usuario.cvPath}">Descargar</a></p>
+                </div>
+            </div>
+
+
         </div>
 
         <div th:replace="layout/plantilla :: footer"></div>

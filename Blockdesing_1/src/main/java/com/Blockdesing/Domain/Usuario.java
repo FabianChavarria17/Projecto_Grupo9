@@ -23,6 +23,7 @@ public class Usuario implements Serializable {
     private String correo;
     private String rol;
     private boolean activo;
+    private String cvPath;    // para almacenar ruta o nombre
 
     public Usuario() {
     }
@@ -57,4 +58,8 @@ public class Usuario implements Serializable {
 
     public boolean isActivo() { return activo; }
     public void setActivo(boolean activo) { this.activo = activo; }
+
+    public String getCvPath() { return cvPath; }
+    public void setCvPath(String cvPath) { this.cvPath = cvPath; }
 }
+
