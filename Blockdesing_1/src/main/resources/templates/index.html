@@ -1,106 +1,85 @@
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-    <head th:replace="~{layout/plantilla :: head}"></head>
-    <body>
-        <header th:replace="~{layout/plantilla :: header}"></header>
+<head th:replace="~{layout/plantilla :: head}"></head>
+<body>
+<header th:replace="~{layout/plantilla :: header}"></header>
 
-        <main class="container my-5">
-            <div class="text-center mb-5">
-                <h1 class="display-4 fw-bold text-primary">¡Bienvenido!</h1>
-                <p class="lead">Conecta talento con oportunidad en el mundo del diseño técnico.</p>
-            </div>
+<main class="container my-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">¡Bienvenido!</h1>
+        <p class="lead">Conecta talento con oportunidad en el mundo del diseño técnico.</p>
+    </div>
 
-            <div class="row mb-5">
-                <div class="col-md-6">
-                    <h2 class="text-success">Talentos: Dibujantes / Diseñadores</h2>
-                    <p id="texto-talentos">
-                        Pon en practica tu conocimiento y experiencia al desarrollar proyectos especiales a clientes de todo Costa Rica, en BlockDesign podras poner a prueba tus habilidades y
-                        crecer en experiencia y generar remuneraciones en este ambiente seguro, controlado y moderno. Selecciona dentro de las diferentes ofertas el proyecto que mejor se acomoda
-                        a tus gustos y habilidades, permitiendote trabajar desde cualquier parte, formentando lazos con profesionales de todas las areas.
-                    </p>
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h2 class="text-success">Talentos: Dibujantes / Diseñadores</h2>
+            <p>Pon en práctica tu conocimiento y experiencia...</p>
+        </div>
+        <div class="col-md-6">
+            <h2 class="text-info">Ofertantes: Consultores / Constructoras</h2>
+            <p>No busques más, aquí podrás publicar tu oferta de trabajo...</p>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <form th:action="@{/}" method="get" class="d-flex align-items-start position-relative">
+                <input type="text" name="buscar" class="form-control me-2" placeholder="Buscar ofertas..." />
+                <button type="submit" class="btn btn-primary me-2">Buscar</button>
+
+                <!-- Dropdown de Filtros -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownFiltros" data-bs-toggle="dropdown" aria-expanded="false">
+                        Filtros
+                    </button>
+                    <ul class="dropdown-menu p-3" aria-labelledby="dropdownFiltros" style="min-width: 250px;">
+                        <li class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="filtro-activas" name="filtro" value="activas">
+                            <label class="form-check-label" for="filtro-activas">Solo activas</label>
+                        </li>
+                        <li class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="filtro-inactivas" name="filtro" value="inactivas">
+                            <label class="form-check-label" for="filtro-inactivas">Solo inactivas</label>
+                        </li>
+                        <li class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="filtro-precio-menor" name="filtro" value="precioMenor">
+                            <label class="form-check-label" for="filtro-precio-menor">Precio bajo</label>
+                        </li>
+                        <li class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="filtro-precio-mayor" name="filtro" value="precioMayor">
+                            <label class="form-check-label" for="filtro-precio-mayor">Precio alto</label>
+                        </li>
+                        <li class="mt-3 text-end">
+                            <button type="submit" class="btn btn-sm btn-primary">Aplicar</button>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-6">
-                    <h2 class="text-info">Ofertantes: Consultores / Constructoras</h2>
-                    <p id="texto-ofertantes">
-                        No busques mas, aqui podras publicar tu oferta de trabajo y recibiras multiples solicitudes de trabajo. En BlockDesign podras inscibirte, administrar tu perfil, publicar el o los
-                        proyectos que desees asistencia en dibujo y dise;o, coloca las caracteristicas respectivas (area de desempe;o, tiempo, presupuesto y especificaciones), publica tu oferta en
-                        un portal donde todos los talentos podran participar por desarrollar tu proyecto. Selecciona el candidato que mas se identifique con el perfil experimental que estas buscando y listo!.
-                        Disfuta de una conexion profesional y comprometida durante el desarrollo de tu proyecto.
+            </form>
+        </div>
+        <div class="col-md-4 text-end">
+            <a th:href="@{/ofertas/crear}" class="btn btn-success">+ Agregar Oferta</a>
+        </div>
+    </div>
 
-                    </p>
+    <h2 class="text-center text-primary mb-4">Ofertas Disponibles</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="oferta : ${ofertas}">
+            <div class="card h-100 shadow-sm">
+                <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Imagen de oferta">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${oferta.titulo}">Título</h5>
+                    <p class="card-text" th:text="${oferta.descripcion}">Descripción</p>
+                    <p class="text-muted">₡ <span th:text="${oferta.precio}">Precio</span></p>
                 </div>
             </div>
-            <div class="container mb-5">
-                <h2 class="text-center text-primary mb-4">Ofertas Disponibles</h2>
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <!-- Oferta 1-1 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Especificaciones</h5>
-                                    <p class="card-text">Buscamos diseñador técnico para elaborar planos eléctricos para proyecto residencial.</p>
-                                </div>
-                        </div>
-                    </div>
+        </div>
+    </div>
+</main>
 
-                    <!-- Oferta 1-2 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Especificaciones</h5>
-                                    <p class="card-text">Se requiere apoyo para modelado de elementos estructurales en Revit.</p>
-                                </div>
-                        </div>
-                    </div>
-
-                    <!-- Oferta 1-3 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Especificaciones</h5>
-                                    <p class="card-text">Proyecto de renovación de interiores necesita visualizaciones 3D y renders.</p>
-                                </div>
-                        </div>
-                    </div>
-                    <!-- Oferta 2-1 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Especificaciones</h5>
-                                    <p class="card-text">Buscamos dibujante técnico para desarrollar planos mecanicos de sistema de aire acondicionado para proyecto iondustrial.</p>
-                                </div>
-                        </div>
-                    </div>
-
-                    <!-- Oferta 2-2 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Especificaciones</h5>
-                                    <p class="card-text">Se necesita modelado muebles y sillas en 3D utilzando Render.</p>
-                                </div>
-                        </div>
-                    </div>
-
-                    <!-- Oferta 3-3 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Oferta 3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Especificaciones</h5>
-                                    <p class="card-text">Levantamiento arquitectonico de hogar a remodelar</p>
-                                </div>
-                        </div>
-                    </div>
-                    </main>
-                    <footer th:replace="~{layout/plantilla :: footer}"></footer>
-                    </body>
-                    </html>
+<footer th:replace="~{layout/plantilla :: footer}"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

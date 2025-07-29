@@ -25,14 +25,14 @@ public class OfertaController {
     @GetMapping
     public String listarOfertas(Model modelo) {
         modelo.addAttribute("ofertas", ofertaService.listarOferta());
-        return "ofertas/lista"; // Esta es la vista que tendrás que crear
+        return "redirect:/"; // Esta es la vista que tendrás que crear
     }
 
     // Mostrar formulario para crear nueva oferta
     @GetMapping("/crear")
     public String mostrarFormularioCrear(Model modelo) {
         modelo.addAttribute("oferta", new Oferta());
-        return "ofertas/formulario"; // Vista para crear/editar
+        return "formulario"; // Vista para crear/editar
     }
 
     // Guardar nueva oferta o actualizar existente
@@ -52,7 +52,7 @@ public class OfertaController {
                 .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
 
         modelo.addAttribute("oferta", oferta);
-        return "ofertas/formulario";
+        return "formulario";
     }
 
     // Eliminar oferta
