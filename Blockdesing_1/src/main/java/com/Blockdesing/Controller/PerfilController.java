@@ -1,9 +1,9 @@
 package com.Blockdesing.Controller;
 
-import com.Blockdesing.Dao.ProyectoDao;
-import com.Blockdesing.Dao.UsuarioDao;
 import com.Blockdesing.Domain.Proyecto;
 import com.Blockdesing.Domain.Usuario;
+import com.Blockdesing.Service.ProyectoService;
+import com.Blockdesing.Service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class PerfilController {
@@ -29,10 +30,10 @@ public class PerfilController {
     private String uploadDir;
     
     @Autowired
-    private UsuarioDao usuarioDao;
+    private UsuarioService usuarioService;
     
     @Autowired
-    private ProyectoDao proyectoDao;
+    private ProyectoService  proyectoService ;
 
     @GetMapping("/perfil")
     public String perfil(HttpSession session, Model model) {
@@ -41,7 +42,7 @@ public class PerfilController {
             return "redirect:/login";
         }
         // Carga proyectos de este usuario
-        List<Proyecto> proyectos = proyectoDao.findByUsuario(usr);
+        List<Proyecto> proyectos = proyectoService.listarPorUsuario(usr);
         model.addAttribute("usuario", usr);
         model.addAttribute("proyectos", proyectos);
         return "perfil";
@@ -56,22 +57,69 @@ public class PerfilController {
         if (usr == null) {
             return "redirect:/login";
         }
-
-        // Generar nombre único usando java.util.UUID
         String filename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 
-        // Crear directorios y guardar el archivo en disco
+        // Crear directorios y guardar el archivo
         Path target = Paths.get(uploadDir).resolve(filename);
         Files.createDirectories(target.getParent());
         file.transferTo(target.toFile());
 
         // Guarda la ruta en el usuario y actualiza
         usr.setCvPath(filename);
-        usuarioDao.save(usr);
+        usuarioService.save(usr);
 
         ra.addFlashAttribute("mensaje", "CV subido correctamente.");
         return "redirect:/perfil";
     }
+    
+    // Formulario para agregar un proyecto
+    @GetMapping("/perfil/proyecto/nuevo")
+    public String nuevoProyectoForm(HttpSession session, Model model) {
+        Usuario usr = (Usuario) session.getAttribute("usuarioLogueado");
+        if (usr == null) return "redirect:/login";
+        model.addAttribute("proyecto", new Proyecto());
+        return "proyecto";
+    }
+
+    // Procesar creación de proyecto
+    @PostMapping("/perfil/proyecto/nuevo")
+    public String guardarProyecto(@ModelAttribute Proyecto proyecto,
+                                  HttpSession session,
+                                  RedirectAttributes ra) {
+        Usuario usr = (Usuario) session.getAttribute("usuarioLogueado");
+        if (usr == null) return "redirect:/login";
+
+        proyecto.setUsuario(usr);
+        proyectoService.guardar(proyecto);
+        ra.addFlashAttribute("mensaje", "Proyecto agregado exitosamente.");
+        return "redirect:/perfil";
+    }
+
+    // Formulario para editar datos de Usuario
+    @GetMapping("/perfil/editar")
+    public String editarUsuarioForm(HttpSession session, Model model) {
+        Usuario usr = (Usuario) session.getAttribute("usuarioLogueado");
+        if (usr == null) return "redirect:/login";
+        model.addAttribute("usuario", usr);
+        return "usuario";
+    }
+
+    // Procesar edición de Usuario
+    @PostMapping("/perfil/editar")
+    public String actualizarUsuario(@ModelAttribute Usuario usuario,
+                                    HttpSession session,
+                                    RedirectAttributes ra) {
+        Usuario usr = (Usuario) session.getAttribute("usuarioLogueado");
+        if (usr == null) return "redirect:/login";
+
+        usuario.setIdUsuario(usr.getIdUsuario());
+        usuarioService.save(usuario);
+        session.setAttribute("usuarioLogueado", usuario);
+
+        ra.addFlashAttribute("mensaje", "Perfil actualizado correctamente.");
+        return "redirect:/perfil";
+    }
+    
 }
 
 //import com.Blockdesing.Domain.Proyecto;
