@@ -37,7 +37,7 @@ public class RecuperarPasswordController {
         String token = UUID.randomUUID().toString();
         usuarioService.guardarTokenRecuperacion(usuario.getIdUsuario(), token);
 
-        String enlace = "http://localhost:8080/restablecerPassword?token=" + token;
+        String enlace = "http://localhost:80/restablecerPassword?token=" + token;
 
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setTo(correo);
