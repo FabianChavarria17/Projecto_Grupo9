@@ -21,23 +21,23 @@ public class RecuperarPasswordController {
     @Autowired
     private JavaMailSender mailSender;
 
-    @GetMapping("/recuperar-password")
+    @GetMapping("/recuperarPassword")
     public String mostrarFormularioRecuperar() {
-        return "recuperar-password";
+        return "recuperarPassword";
     }
 
-    @PostMapping("/recuperar-password")
+    @PostMapping("/recuperarPassword")
     public String procesarRecuperacion(@RequestParam("correo") String correo, Model model) {
         Usuario usuario = usuarioService.buscarPorCorreo(correo);
         if (usuario == null) {
             model.addAttribute("error", "No existe una cuenta con ese correo.");
-            return "recuperar-password";
+            return "recuperarPassword";
         }
 
         String token = UUID.randomUUID().toString();
         usuarioService.guardarTokenRecuperacion(usuario.getIdUsuario(), token);
 
-        String enlace = "http://localhost:8080/restablecer-password?token=" + token;
+        String enlace = "http://localhost:8080/restablecerPassword?token=" + token;
 
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setTo(correo);
@@ -46,28 +46,28 @@ public class RecuperarPasswordController {
         mailSender.send(mensaje);
 
         model.addAttribute("mensaje", "Hemos enviado un enlace a tu correo para restablecer tu contraseña.");
-        return "recuperar-password";
+        return "recuperarPassword";
     }
 
-    @GetMapping("/restablecer-password")
+    @GetMapping("/restablecerPassword")
     public String mostrarFormularioRestablecer(@RequestParam("token") String token, Model model) {
         Usuario usuario = usuarioService.buscarPorToken(token);
         if (usuario == null) {
             model.addAttribute("error", "Token inválido o expirado.");
-            return "recuperar-password";
+            return "recuperarPassword";
         }
         model.addAttribute("token", token);
-        return "restablecer-password";
+        return "restablecerPassword";
     }
 
-    @PostMapping("/restablecer-password")
+    @PostMapping("/restablecerPassword")
     public String procesarRestablecer(@RequestParam("token") String token,
-                                      @RequestParam("nueva") String nuevaPassword,
+                                      @RequestParam("nuevaPassword") String nuevaPassword,
                                       Model model) {
         Usuario usuario = usuarioService.buscarPorToken(token);
         if (usuario == null) {
             model.addAttribute("error", "Token inválido o expirado.");
-            return "restablecer-password";
+            return "restablecerPassword";
         }
         usuarioService.actualizarPassword(usuario, nuevaPassword);
         model.addAttribute("mensaje", "Tu contraseña ha sido cambiada con éxito.");
