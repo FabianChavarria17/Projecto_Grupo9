@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 
 package com.Blockdesing.Controller;
 
@@ -25,7 +22,7 @@ public class EvaluacionController {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
         
         if (usuario == null) {
-            return "redirect:/login"; /
+            return "redirect:/login"; 
         }
         
         Usuario usuarioActualizado = usuarioDao.findById(usuario.getIdUsuario()).orElse(null);

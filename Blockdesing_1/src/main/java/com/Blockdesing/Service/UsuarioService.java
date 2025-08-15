@@ -15,5 +15,13 @@ public interface UsuarioService {
     
     //Examen
     Usuario findByUsername(String username);
-
+    
+    //token para recuperar contrasena
+    Usuario buscarPorCorreo(String correo);
+    
+    Usuario buscarPorToken (String token);
+    
+    public void guardarTokenRecuperacion(Long idUsuario, String token);
+    
+    public void actualizarPassword(Usuario usuario, String nuevaPassword);
 }
