@@ -66,17 +66,24 @@
     <h2 class="text-center text-primary mb-4">Ofertas Disponibles</h2>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col" th:each="oferta : ${ofertas}">
-            <div class="card h-100 shadow-sm">
-                <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Imagen de oferta">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${oferta.titulo}">Título</h5>
-                    <p class="card-text" th:text="${oferta.descripcion}">Descripción</p>
-                    <p class="text-muted">₡ <span th:text="${oferta.precio}">Precio</span></p>
-                </div>
+    <div class="col" th:each="oferta : ${ofertas}">
+        <div class="card h-100 shadow-sm">
+            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Imagen de oferta">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${oferta.titulo}">Título</h5>
+                <p class="card-text" th:text="${oferta.descripcion}">Descripción</p>
+                <p class="text-muted">₡ <span th:text="${oferta.precio}">Precio</span></p>
+
+                <!-- Botón para ver más detalles -->
+                <a th:href="@{/ofertas/{id}(id=${oferta.idOferta})}" 
+                   class="btn btn-outline-primary">
+                    Ver más
+                </a>
             </div>
         </div>
     </div>
+</div>
+
 </main>
 
 <footer th:replace="~{layout/plantilla :: footer}"></footer>

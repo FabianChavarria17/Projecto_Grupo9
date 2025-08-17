@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/plantilla :: head}"></head>
+<body>
+<header th:replace="~{layout/plantilla :: header}"></header>
+
+<main class="container my-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-primary mb-3" th:text="${oferta.titulo}">Título</h2>
+        <img th:src="@{/img/oferta1.png}" class="img-fluid rounded mb-4" alt="Imagen de oferta">
+        
+        <p><strong>Descripción:</strong></p>
+        <p th:text="${oferta.descripcion}">Descripción de la oferta</p>
+
+        <p><strong>Precio:</strong> ₡ <span th:text="${oferta.precio}">0</span></p>
+
+        <p>
+            <strong>Estado:</strong>
+            <span th:text="${oferta.activa} ? 'Activa' : 'Inactiva'"></span>
+        </p>
+
+        <a th:href="@{/}" class="btn btn-secondary mt-3">Volver al inicio</a>
+    </div>
+</main>
+
+<footer th:replace="~{layout/plantilla :: footer}"></footer>
+</body>
+</html>

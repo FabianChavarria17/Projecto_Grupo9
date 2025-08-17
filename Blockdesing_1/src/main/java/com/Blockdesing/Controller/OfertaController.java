@@ -61,5 +61,19 @@ public class OfertaController {
         ofertaService.eliminarOferta(id);
         return "redirect:/ofertas";
     }
+    
+    // Ver detalle de una oferta
+@GetMapping("/{id}")
+public String verDetalle(@PathVariable("id") Integer id, Model modelo) {
+    Oferta oferta = ofertaService.listarOferta()
+            .stream()
+            .filter(o -> o.getIdOferta().equals(id))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("ID inválido: " + id));
+
+    modelo.addAttribute("oferta", oferta);
+    return "detalle"; // nueva vista detalle.html
+}
+
 }
 
