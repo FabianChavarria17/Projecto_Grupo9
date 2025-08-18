@@ -19,7 +19,7 @@ public class RecuperarPasswordController {
     private UsuarioService usuarioService;
 
     @Autowired
-    private JavaMailSender mailSender;
+    private JavaMailSender mailSender; 
 
     @GetMapping("/recuperarPassword")
     public String mostrarFormularioRecuperar() {
