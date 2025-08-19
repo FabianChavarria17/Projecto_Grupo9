@@ -36,6 +36,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario getUsuario(Usuario usuario) {
         return usuarioDao.findById(usuario.getIdUsuario()).orElse(null);
     }
+    
+    //para el listado que manejara el Admin
+    @Override
+    public Usuario getUsuarios(Long idUsuario) {
+        return usuarioDao.findById(idUsuario).orElse(null);
+    }
 
     @Override
     public void save(Usuario usuario) {

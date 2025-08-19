@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Administrar Usuarios</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container mt-4">
-    <h2>Administrar Usuarios</h2>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Usuario</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Rol</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        <tr th:each="u : ${usuarios}">
-            <td th:text="${u.idUsuario}"></td>
-            <td th:text="${u.userName}"></td>
-            <td th:text="${u.nombre}"></td>
-            <td th:text="${u.correo}"></td>
-            <td th:text="${u.rol}"></td>
-            <td>
-                <span th:text="${u.activo ? 'Activo' : 'Suspendido'}"></span>
-            </td>
-            <td>
-                <form th:action="@{'/admin/usuarios/suspender/' + ${u.idUsuario}}" method="post" style="display:inline">
-                    <button class="btn btn-warning btn-sm" type="submit">Suspender</button>
-                </form>
-                <form th:action="@{'/admin/usuarios/activar/' + ${u.idUsuario}}" method="post" style="display:inline">
-                    <button class="btn btn-success btn-sm" type="submit">Activar</button>
-                </form>
-                <form th:action="@{'/admin/usuarios/eliminar/' + ${u.idUsuario}}" method="post" style="display:inline">
-                    <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-</body>
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+
+        <main class="container mt-5">
+            <h2>Listado de Usuarios</h2>
+            <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Activo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario : ${usuarios}">
+                        <td th:text="${usuario.idUsuario}"></td>
+                        <td th:text="${usuario.userName}"></td>
+                        <td th:text="${usuario.nombre}"></td>
+                        <td th:text="${usuario.correo}"></td>
+                        <td th:text="${usuario.rol}"></td>
+                        <td>
+                            <span th:text="${usuario.activo} ? 'Sí' : 'No'"></span>
+                        </td>
+                        <td>
+                            <!-- Botón suspender -->
+                            <form th:action="@{/admin/usuarios/suspender}" method="post" style="display:inline;">
+                                <input type="hidden" name="idUsuario" th:value="${usuario.idUsuario}"/>
+                                <button type="submit" class="btn btn-warning btn-sm">Suspender</button>
+                            </form>
+                            <!-- Botón reactivar -->
+                            <form th:action="@{/admin/usuarios/reactivar}" method="post" style="display:inline;">
+                                <input type="hidden" name="idUsuario" th:value="${usuario.idUsuario}"/>
+                                <button type="submit" class="btn btn-success btn-sm">Reactivar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+    </body>
 </html>

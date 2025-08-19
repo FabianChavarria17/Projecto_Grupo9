@@ -119,7 +119,6 @@ public class PerfilController {
         if (usrSession == null) {
             return "redirect:/login";
         }
-
         // 1) Mantener ID y username originales
         usuario.setIdUsuario(usrSession.getIdUsuario());
         usuario.setUserName(usrSession.getUserName());

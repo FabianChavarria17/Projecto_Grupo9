@@ -2,6 +2,7 @@ package com.Blockdesing.Domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -33,6 +34,7 @@ public class Usuario implements Serializable {
     
     @Column(name = "examen2_aprobado")
     private boolean examen2Aprobado;
+    
     
     public Usuario() {
     }
