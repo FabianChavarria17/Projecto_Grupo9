@@ -10,6 +10,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,9 @@ public class RegistroController {
 
     @Autowired
     private UsuarioService usuarioService;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/registro")
     public String mostrarFormularioRegistro(Model model) {
@@ -39,32 +43,30 @@ public class RegistroController {
     }
 
     @PostMapping("/registro")
-    public String registrarUsuario(
-            @RequestParam String userName,
-            @RequestParam String password,
-            @RequestParam String nombre,
-            @RequestParam(required = false) String correo,
-            @RequestParam String rol,
+    public String registrarUsuario(@ModelAttribute("usuario") Usuario usuario,
             Model model
     ) throws MessagingException {
         // Verificar si ya existe un usuario con ese username
-        Usuario existente = usuarioDao.findByUserName(userName);
+        Usuario existente = usuarioDao.findByUserName(usuario.getUserName());
         if (existente != null) {
             model.addAttribute("mensaje", "El nombre de usuario ya esta en uso");
-            model.addAttribute("mensaje", new Usuario());
+            //model.addAttribute("mensaje", new Usuario());
             model.addAttribute("roles", List.of("dibujante", "constructor", "ADMIN"));
             return "registro";
         }
 
+        String passwordCodificado = passwordEncoder.encode(usuario.getPassword());
+        usuario.setPassword(passwordCodificado);
         //Crear nuevo usuario con activo = false + el token 
         String token = UUID.randomUUID().toString();
-        Usuario nuevoUsuario = new Usuario(userName, password, nombre, correo, rol, false);
-        nuevoUsuario.setTokenRecuperacion(token);
-        usuarioService.save(nuevoUsuario);
+        usuario.setActivo(false);
+        usuario.setTokenRecuperacion(token);
+        
+        usuarioService.save(usuario);
 
         // Enviar correo con el link de verificación
         String link = "http://localhost:80/verificarCuenta?token=" + token;
-        enviarCorreoVerificacion(correo, link);
+        enviarCorreoVerificacion(usuario.getCorreo(), link);
 
         model.addAttribute("mensaje", "Registro exitoso. Revisa tu correo para verificar tu cuenta.");
         model.addAttribute("usuario", new Usuario());
