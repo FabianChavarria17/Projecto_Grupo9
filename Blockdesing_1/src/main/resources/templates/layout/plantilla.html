@@ -84,6 +84,8 @@
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item" th:href="@{/perfil}">Mi Perfil</a></li>
                                     <li><hr class="dropdown-divider"/></li>
+                                    <li><a class="dropdown-item" th:href="@{/postulaciones}">Mis Postulaciones</a></li>
+                                    <li><hr class="dropdown-divider"/></li>
                                     <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/listaUsuarios}">Administración de Usuarios</a></li>
                                     <li><hr class="dropdown-divider"/></li>
                                     <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>

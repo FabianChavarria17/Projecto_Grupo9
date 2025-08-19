@@ -35,8 +35,8 @@ public class ProjectConfig implements WebMvcConfigurer {
         http
                 .authorizeHttpRequests((request) -> request
                 // Páginas públicas
-                .requestMatchers("/", "/index", "/login", "/registro", "/recuperarPassword", "/verificarCuenta",
-                        "/css/**", "/js/**", "/img/**", "/webjars/**", "/error"
+                .requestMatchers("/", "/index", "/login", "/registro", "/recuperarPassword", 
+                        "/verificarCuenta", "/css/**", "/js/**", "/img/**", "/webjars/**", "/error"
                 ).permitAll()
                 // Solo ADMIN puede ver la lista de usuarios
                 .requestMatchers("/usuarios/**").hasRole("ADMIN")
@@ -50,7 +50,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .logout(logout -> logout.permitAll())
                 .formLogin(form -> form
                 .loginPage("/login")
-                .usernameParameter("correo") // <--- aquí decís que el login usa "correo"
+                .usernameParameter("correo") //
                 .passwordParameter("password")
                 .failureUrl("/login?error=true")
                 .permitAll()

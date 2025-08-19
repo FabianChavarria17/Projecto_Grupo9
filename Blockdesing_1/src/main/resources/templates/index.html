@@ -2,91 +2,98 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{layout/plantilla :: head}"></head>
-<body>
-<header th:replace="~{layout/plantilla :: header}"></header>
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>
 
-<main class="container my-5">
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-primary">¡Bienvenido!</h1>
-        <p class="lead">Conecta talento con oportunidad en el mundo del diseño técnico.</p>
-    </div>
-
-    <div class="row mb-5">
-        <div class="col-md-6">
-            <h2 class="text-success">Talentos: Dibujantes / Diseñadores</h2>
-            <p>Pon en práctica tu conocimiento y experiencia...</p>
-        </div>
-        <div class="col-md-6">
-            <h2 class="text-info">Ofertantes: Consultores / Constructoras</h2>
-            <p>No busques más, aquí podrás publicar tu oferta de trabajo...</p>
-        </div>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-md-8">
-            <form th:action="@{/}" method="get" class="d-flex align-items-start position-relative">
-                <input type="text" name="buscar" class="form-control me-2" placeholder="Buscar ofertas..." />
-                <button type="submit" class="btn btn-primary me-2">Buscar</button>
-
-                <!-- Dropdown de Filtros -->
-                <div class="dropdown">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownFiltros" data-bs-toggle="dropdown" aria-expanded="false">
-                        Filtros
-                    </button>
-                    <ul class="dropdown-menu p-3" aria-labelledby="dropdownFiltros" style="min-width: 250px;">
-                        <li class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="filtro-activas" name="filtro" value="activas">
-                            <label class="form-check-label" for="filtro-activas">Solo activas</label>
-                        </li>
-                        <li class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="filtro-inactivas" name="filtro" value="inactivas">
-                            <label class="form-check-label" for="filtro-inactivas">Solo inactivas</label>
-                        </li>
-                        <li class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="filtro-precio-menor" name="filtro" value="precioMenor">
-                            <label class="form-check-label" for="filtro-precio-menor">Precio bajo</label>
-                        </li>
-                        <li class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="filtro-precio-mayor" name="filtro" value="precioMayor">
-                            <label class="form-check-label" for="filtro-precio-mayor">Precio alto</label>
-                        </li>
-                        <li class="mt-3 text-end">
-                            <button type="submit" class="btn btn-sm btn-primary">Aplicar</button>
-                        </li>
-                    </ul>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-4 text-end">
-            <a th:href="@{/ofertas/crear}" class="btn btn-success">+ Agregar Oferta</a>
-        </div>
-    </div>
-
-    <h2 class="text-center text-primary mb-4">Ofertas Disponibles</h2>
-
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col" th:each="oferta : ${ofertas}">
-        <div class="card h-100 shadow-sm">
-            <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Imagen de oferta">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${oferta.titulo}">Título</h5>
-                <p class="card-text" th:text="${oferta.descripcion}">Descripción</p>
-                <p class="text-muted">₡ <span th:text="${oferta.precio}">Precio</span></p>
-
-                <!-- Botón para ver más detalles -->
-                <a th:href="@{/ofertas/{id}(id=${oferta.idOferta})}" 
-                   class="btn btn-outline-primary">
-                    Ver más
-                </a>
+        <main class="container my-5">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary">¡Bienvenido!</h1>
+                <p class="lead">Conecta talento con oportunidad en el mundo del diseño técnico.</p>
             </div>
-        </div>
-    </div>
-</div>
 
-</main>
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <h2 class="text-success">Talentos: Dibujantes / Diseñadores</h2>
+                    <p>Pon en práctica tu conocimiento y experiencia...</p>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-info">Ofertantes: Consultores / Constructoras</h2>
+                    <p>No busques más, aquí podrás publicar tu oferta de trabajo...</p>
+                </div>
+            </div>
 
-<footer th:replace="~{layout/plantilla :: footer}"></footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <form th:action="@{/}" method="get" class="d-flex align-items-start position-relative">
+                        <input type="text" name="buscar" class="form-control me-2" placeholder="Buscar ofertas..." />
+                        <button type="submit" class="btn btn-primary me-2">Buscar</button>
+
+                        <!-- Dropdown de Filtros -->
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownFiltros" data-bs-toggle="dropdown" aria-expanded="false">
+                                Filtros
+                            </button>
+                            <ul class="dropdown-menu p-3" aria-labelledby="dropdownFiltros" style="min-width: 250px;">
+                                <li class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="filtro-activas" name="filtro" value="activas">
+                                        <label class="form-check-label" for="filtro-activas">Solo activas</label>
+                                </li>
+                                <li class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="filtro-inactivas" name="filtro" value="inactivas">
+                                        <label class="form-check-label" for="filtro-inactivas">Solo inactivas</label>
+                                </li>
+                                <li class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="filtro-precio-menor" name="filtro" value="precioMenor">
+                                        <label class="form-check-label" for="filtro-precio-menor">Precio bajo</label>
+                                </li>
+                                <li class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="filtro-precio-mayor" name="filtro" value="precioMayor">
+                                        <label class="form-check-label" for="filtro-precio-mayor">Precio alto</label>
+                                </li>
+                                <li class="mt-3 text-end">
+                                    <button type="submit" class="btn btn-sm btn-primary">Aplicar</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 text-end">
+                    <a th:href="@{/ofertas/crear}" class="btn btn-success">+ Agregar Oferta</a>
+                </div>
+            </div>
+
+            <h2 class="text-center text-primary mb-4">Ofertas Disponibles</h2>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" th:each="oferta : ${ofertas}">
+                    <div class="card h-100 shadow-sm">
+                        <img th:src="@{/img/oferta1.png}" class="card-img-top" alt="Imagen de oferta">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${oferta.titulo}">Título</h5>
+                                <p class="card-text" th:text="${oferta.descripcion}">Descripción</p>
+                                <p class="text-muted">₡ <span th:text="${oferta.precio}">Precio</span></p>
+
+                                <!-- Botón para ver más detalles -->
+                                <div class="d-flex justify-content-between">
+                                    <a th:href="@{/ofertas/{id}(id=${oferta.idOferta})}" 
+                                       class="btn btn-outline-primary">
+                                        Ver más
+                                    </a>
+                                    <!-- Botón para postularse -->
+                                    <form th:action="@{/postular}" method="post" class="m-0">
+                                        <input type="hidden" th:name="idOferta" th:value="${oferta.idOferta}" />
+                                        <button type="submit" class="btn btn-success">Postularme</button>
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
